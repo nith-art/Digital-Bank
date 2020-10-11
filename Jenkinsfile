@@ -6,7 +6,7 @@ pipeline{
     stages{
         stage('Checkout'){
             steps{
-                git 'https://github.com/AnjuMeleth/spring-petclinic.git'
+                git 'https://github.com/nith-art/Digital-Bank.git'
             }
         }
         stage('Build'){
@@ -23,14 +23,17 @@ pipeline{
         stage('Package'){
             steps{
                 sh 'mvn package'
-                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
-                }
+                archiveArtifacts artifacts: 'target/*.war', fingerprint: true
+            }
         }
-        stage('Reports'){
+        stage('Deploy'){
             steps{
-                sh 'mvn verify'
-                publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'target/site/jacoco', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: ''])     
-                }
+                input 'Do you approve the deployment?'
+		//sh 'scp /var/lib/jenkins/workspace/SpringPetclinic/target/*.jar produser@45.76.96.139:/home/produser'
+		//sh 'scp /var/lib/jenkins/workspace/SpringPetclinic/Dockerfile produser@45.76.96.139:/home/produser'
+		sh 'docker build . -t nith06/digibank'
+		sh 'docker run -d -p 8087:8080 nith06/digibank'
+            }
         }   
     }
 }
