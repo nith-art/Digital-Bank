@@ -1,5 +1,5 @@
-FROM java:8-jdk-alpine
-COPY ./build/libs/digitalbank-0.0.1-SNAPSHOT.war /usr/app/
-WORKDIR /usr/app
+FROM tomcat:9.0
 EXPOSE 8080
-ENTRYPOINT ["java", “-jar", “digitalbank-0.0.1-SNAPSHOT.war"]
+COPY /target/bank##2.1.0.local.war /usr/local/tomcat/webapps/
+COPY /target/classes/application.properties /usr/local/tomcat/conf/digitalbank.properties
+HEALTHCHECK CMD curl -fail http://localhost:8080/bank/api/v1/health || exit 1
