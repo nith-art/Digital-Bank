@@ -1,19 +1,19 @@
 apiVersion: v1
 kind: ReplicationController
 metadata:
-  name: nginx
+  name: digibank
 spec:
   replicas: 3
   selector:
-    app: nginx
+    app: digibank
   template:
     metadata:
-      name: nginx
+      name: digibank
       labels:
-        app: nginx
+        app: digibank
     spec:
       containers:
-      - name: nginx
-        image: nginx
+      - name: digibank
+        image: digibank
         ports:
         - containerPort: 80
