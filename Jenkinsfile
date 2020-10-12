@@ -32,7 +32,7 @@ pipeline{
 		//sh 'scp /var/lib/jenkins/workspace/SpringPetclinic/target/*.jar produser@45.76.96.139:/home/produser'
 		//sh 'scp /var/lib/jenkins/workspace/SpringPetclinic/Dockerfile produser@45.76.96.139:/home/produser'
 		sh 'docker build . -t digibank'
-		sh 'docker run -d --name DigitalBank1 -p 8085:8080 digibank'
+		sh 'docker run -d --name DigitalBank123 -p 8084:8080 digibank'
             }
         }   
     }
